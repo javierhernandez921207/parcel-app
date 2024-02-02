@@ -17,7 +17,8 @@ class DeliveryController extends Controller
     }
    
     /**
-     * Store a newly created resource in storage.
+     * We save the data of a shipment, the package data and call the carrier service 
+     * to obtain a trackin_number to know its status in the future.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
