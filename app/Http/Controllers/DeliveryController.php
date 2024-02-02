@@ -19,7 +19,20 @@ class DeliveryController extends Controller
     /**
      * We save the data of a shipment, the package data and call the carrier service 
      * to obtain a trackin_number to know its status in the future.
-     *
+     *  
+     * I assume that the recipient is already registered in the application
+     * and I use a request like the following.
+     * 
+     * {
+     * "recipient_id":1,
+     * "parcels":[
+     *      {"width":23,"height":20,"length":23,"weight":6},
+     *      {"width":12,"height":12,"length":2,"weight":3}],
+     * "status":"Send",
+     * "carrier":"Fedex"
+     * }
+     * 
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -55,15 +68,22 @@ class DeliveryController extends Controller
             $parcel->weight = $p['weight'];
             $parcel->delivery_id = $delivery->id;
             $parcel->save();
-        } 
+        }
 
-        $delivery->tracking_number = $this->carrierService->SendDelivery(
-            $recipient->name, 
-            $recipient->phone_number, 
-            $recipient->email, 
-            $recipient->address,
-            $parcels
-        );   
+        /**
+         * If the request defines the FedEx service, I used this service or another.
+         * Through the tracking number, the recipient can know the status of their shipment.
+         */
+        if($delivery->carrier == 'Fedex')
+        {
+            $delivery->tracking_number = $this->carrierService->SendDeliveryFedex(
+                $recipient->name, 
+                $recipient->phone_number, 
+                $recipient->email, 
+                $recipient->address,
+                $parcels
+            );
+        }
             
         $delivery->save(); 
 
