@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Parcel extends Model
 {
-    protected $fillable = ['width', 'height', 'length', 'weight', 'delivery_id'];
+    protected $fillable = ['width', 'height', 'length', 'weight'];
 
     public function Delivery(): BelongsTo
     {

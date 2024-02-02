@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Delivery extends Model
 {
-    protected $fillable = ['status', 'carrier', 'tracking_number', 'recipient_id'];
+    protected $fillable = ['status', 'carrier', 'tracking_number'];
     
     public function Parcels(): HasMany
     {

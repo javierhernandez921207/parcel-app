@@ -14,7 +14,7 @@ class CreateDeliveriesTable extends Migration
     public function up()
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->id('delivery_id');
+            $table->id();
             $table->string('status');
             $table->string('carrier');
             $table->string('tracking_number');
